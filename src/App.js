@@ -10,6 +10,7 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Profile from "./pages/Profile"
 import { toast, ToastContainer } from "react-toastify"
+import EmailVerified from "./pages/EmailVerified"
 
 function App() {
   const [films, setFilms] = useState([])
@@ -49,7 +50,7 @@ function App() {
 
       await axios.post("http://localhost:5000/api/auth/signup", userBody)
       console.log("signup success")
-      navigate("/login")
+      toast.success("user created, please go check your email for verification")
     } catch (error) {
       if (error.response) console.log(error.response.data)
       else console.log(error)
@@ -120,8 +121,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/film/:filmId" element={<OneFilm />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/email_verified/:token" element={<EmailVerified />} />
       </Routes>
     </FilmsContext.Provider>
   )
